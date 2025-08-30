@@ -115,5 +115,4 @@ mongodb-data/
 *.backup
 
 # Lock files (usually auto-generated)
-package-lock.json
 yarn.lock
