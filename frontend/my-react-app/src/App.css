@@ -2,7 +2,7 @@
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
-  text-align: center;
+  /* text-align: center; */
 }
 
 :root {
@@ -14,6 +14,10 @@
 body, input, button, textarea, select {
   background-color: var(--background-color);
   color: var(--text-color);
+}
+
+.App {
+  width: 1200px;
 }
 
 .logo {
@@ -55,7 +59,7 @@ body, input, button, textarea, select {
 /* Form Styles */
 .add-item-form {
   /* max-width: 500px; */
-  margin: 2rem auto;
+  margin: auto 2rem;
   padding: 2rem;
   border: 1px solid #ddd;
   border-radius: 8px;
@@ -210,6 +214,6 @@ body, input, button, textarea, select {
 .box {
   width: 45%; /* Example width for each div */
   padding: 20px;
-  border: 1px solid black;
+  /* border: 1px solid black; */
   box-sizing: border-box; /* Include padding and border in the width */
 }

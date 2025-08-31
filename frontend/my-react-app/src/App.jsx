@@ -3,17 +3,38 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import axios from 'axios';
 import AddItemForm from './AddItemForm';
-import './App.css'
+import GridExample from './GridExample';
+import './App.css';
 
 function App() {
     const [items, setItems] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [isEditing, setIsEditing] = useState(false);
+    const [itemToEdit, setItemToEdit] = useState(null);
+    const [refreshTrigger, setRefreshTrigger] = useState(0);
 
     const handleItemAdded = (newItem) => {
         setItems(prevItems => [...prevItems, newItem]);
+        setRefreshTrigger(prev => prev + 1); // Trigger grid refresh
     };
 
+    const handleEdit = (item) => {
+        setIsEditing(true);
+        setItemToEdit(item);
+    };
+
+    const handleItemUpdated = (updatedItem) => {
+        setItems(prevItems =>
+            prevItems.map(item =>
+                item._id === updatedItem._id ? updatedItem : item
+            )
+        );
+        setIsEditing(false);
+        setItemToEdit(null);
+        setRefreshTrigger(prev => prev + 1); // Trigger grid refresh
+    };
+    
     useEffect(() => {
         const fetchItems = async () => {
             try {
@@ -37,8 +58,13 @@ function App() {
         <div className="App">
             <h1>Items Management</h1>
             <div className="container">
-            <AddItemForm onItemAdded={handleItemAdded} />
-            <div className="items-section box">
+            <AddItemForm
+                onItemAdded={handleItemAdded}
+                isEditing={isEditing}
+                itemToEdit={itemToEdit}
+                onItemUpdated={handleItemUpdated}
+            />
+            {/* <div className="items-section box">
                 <h2>Items List</h2>
                 {items.length === 0 ? (
                     <p>No items found. Add your first item above!</p>
@@ -52,7 +78,8 @@ function App() {
                         ))}
                     </ul>
                 )}
-            </div>
+            </div> */}
+             <GridExample onEdit={handleEdit} refreshTrigger={refreshTrigger} />
             </div>
         </div>
     );
